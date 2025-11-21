@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>ابزار محاسبه BMI | xsparvin</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -10,9 +10,10 @@
 :root {
     --primary:#4361ee;--secondary:#3a0ca3;--success:#4cc9f0;
     --warning:#f72585;--light:#f8f9fa;--dark:#212529;--gray:#6c757d;
+    --bg-gradient: linear-gradient(135deg,#667eea,#764ba2);
 }
-*{box-sizing:border-box;margin:0;padding:0;font-family:'Vazir',sans-serif}
-body{background:linear-gradient(135deg,#667eea,#764ba2);color:var(--dark);min-height:100vh;padding:20px;position:relative;overflow-x:hidden}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Vazir', sans-serif, system-ui;}
+body{background:var(--bg-gradient);color:var(--dark);min-height:100vh;padding:20px;position:relative;overflow-x:hidden;transition:all 0.5s ease;}
 .floating-shapes{position:absolute;top:0;left:0;width:100%;height:100%;z-index:-1;overflow:hidden}
 .shape{position:absolute;border-radius:50%;opacity:.1;animation:float 15s infinite ease-in-out}
 .shape-1{width:200px;height:200px;background:var(--primary);top:10%;left:10%;animation-delay:0s}
@@ -54,7 +55,8 @@ button:hover::after{left:100%}
 .bmi-value{font-size:3.5rem;font-weight:700;margin:15px 0;color:var(--primary);text-shadow:0 2px 5px rgba(0,0,0,.1);animation:pulse 2s infinite,numberGlow 3s infinite alternate}
 .bmi-category{font-size:1.5rem;font-weight:600;padding:10px 20px;border-radius:20px;display:inline-block;margin-top:10px;animation:bounceIn 1s ease-out;box-shadow:0 5px 10px rgba(0,0,0,.1)}
 .underweight{background:#17a2b8;color:white}.normal{background:#28a745;color:white}.overweight{background:#ffc107;color:var(--dark)}.obese{background:#dc3545;color:white}
-.chart-container{height:300px;margin-top:20px}
+.chart-container{height:300px;margin-top:20px;position:relative}
+.chart-no-data{display:flex;align-items:center;justify-content:center;height:300px;color:var(--gray);font-weight:600}
 .history-list{max-height:300px;overflow-y:auto;border-radius:10px;box-shadow:inset 0 0 10px rgba(0,0,0,.05);padding:10px}
 .history-item{display:flex;justify-content:space-between;padding:15px;border-bottom:1px solid #e9ecef;transition:.3s;border-radius:8px;margin-bottom:5px}
 .history-item:hover{background:#f8f9fa;transform:translateX(5px);box-shadow:0 3px 10px rgba(0,0,0,.05)}
@@ -76,6 +78,88 @@ button:hover::after{left:100%}
 .tip-title{font-size:1.2rem;margin-bottom:10px;color:var(--primary);display:flex;align-items:center;gap:10px}
 .tip-title i{color:var(--success)}
 footer{text-align:center;margin-top:40px;color:white;padding:20px;opacity:.8;animation:fadeIn 2s ease-out}
+
+/* تنظیمات کنترل‌ها */
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.control-btn {
+    width: auto !important;
+    padding: 10px 20px !important;
+    font-size: 14px !important;
+    border-radius: 25px !important;
+}
+
+.theme-btn {
+    background: linear-gradient(to right, #ff9a9e, #fad0c4) !important;
+}
+
+.language-btn {
+    background: linear-gradient(to right, #a1c4fd, #c2e9fb) !important;
+}
+
+/* تم‌های مختلف */
+body.light-theme {
+    --primary: #4361ee;
+    --secondary: #3a0ca3;
+    --success: #4cc9f0;
+    --warning: #f72585;
+    --light: #f8f9fa;
+    --dark: #212529;
+    --gray: #6c757d;
+    --bg-gradient: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+body.dark-theme {
+    --primary: #7209b7;
+    --secondary: #3a0ca3;
+    --success: #4cc9f0;
+    --warning: #f72585;
+    --light: #212529;
+    --dark: #f8f9fa;
+    --gray: #adb5bd;
+    --bg-gradient: linear-gradient(135deg, #1e3c72, #2a5298);
+}
+
+body.nature-theme {
+    --primary: #2a9d8f;
+    --secondary: #264653;
+    --success: #e9c46a;
+    --warning: #e76f51;
+    --light: #f8f9fa;
+    --dark: #264653;
+    --gray: #6c757d;
+    --bg-gradient: linear-gradient(135deg, #2a9d8f, #264653);
+}
+
+/* حالت انگلیسی */
+body.english {
+    direction: ltr;
+    text-align: left;
+}
+
+body.english .card-title,
+body.english .tip-title {
+    justify-content: flex-start;
+}
+
+body.english .history-item {
+    flex-direction: row-reverse;
+}
+
+body.english .range-input {
+    flex-direction: row-reverse;
+}
+
+body.english .creator-info a,
+body.english button {
+    flex-direction: row-reverse;
+}
+
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 @keyframes bounceIn{0%{opacity:0;transform:scale(.3)}50%{opacity:1;transform:scale(1.05)}70%{transform:scale(.9)}100%{opacity:1;transform:scale(1)}}
@@ -84,7 +168,7 @@ footer{text-align:center;margin-top:40px;color:white;padding:20px;opacity:.8;ani
 @keyframes numberGlow{from{text-shadow:0 0 5px rgba(67,97,238,.5)}to{text-shadow:0 0 15px rgba(67,97,238,.8),0 0 20px rgba(67,97,238,.6)}}
 </style>
 </head>
-<body>
+<body class="light-theme">
 <div class="floating-shapes">
     <div class="shape shape-1"></div>
     <div class="shape shape-2"></div>
@@ -93,16 +177,21 @@ footer{text-align:center;margin-top:40px;color:white;padding:20px;opacity:.8;ani
 </div>
 <div class="container">
 <header>
-    <h1>ابزار محاسبه BMI</h1>
-    <p class="subtitle">شاخص توده بدنی خود را محاسبه و روند تغییرات آن را دنبال کنید</p>
-    <div class="creator-info"><a href="https://t.me/xsfsociety" target="_blank"><i class="fab fa-telegram"></i> توسعه دهنده: xsparvin</a></div>
+    <h1 id="main-title">ابزار محاسبه BMI</h1>
+    <p class="subtitle" id="subtitle-text">شاخص توده بدنی خود را محاسبه و روند تغییرات آن را دنبال کنید</p>
+    <div class="creator-info"><a href="https://t.me/xsfsociety" target="_blank"><i class="fab fa-telegram"></i> <span id="creator-text">توسعه دهنده: xsparvin</span></a></div>
 </header>
+
+<div class="controls">
+    <button class="control-btn theme-btn" id="theme-toggle"><i class="fas fa-palette"></i> <span id="theme-text">تغییر تم</span></button>
+    <button class="control-btn language-btn" id="language-toggle"><i class="fas fa-language"></i> <span id="language-text">English</span></button>
+</div>
 
 <div class="dashboard">
 <div class="card">
-<h2 class="card-title"><i class="fas fa-calculator"></i> محاسبه BMI</h2>
+<h2 class="card-title"><i class="fas fa-calculator"></i> <span id="calc-title">محاسبه BMI</span></h2>
 <div class="input-group">
-<label for="height">قد (سانتی‌متر)</label>
+<label for="height" id="height-label">قد (سانتی‌متر)</label>
 <div class="range-input">
 <input type="range" id="height-range" min="100" max="250" value="170">
 <span class="range-value" id="height-value">170</span>
@@ -110,7 +199,7 @@ footer{text-align:center;margin-top:40px;color:white;padding:20px;opacity:.8;ani
 <input type="number" id="height" min="100" max="250" value="170">
 </div>
 <div class="input-group">
-<label for="weight">وزن (کیلوگرم)</label>
+<label for="weight" id="weight-label">وزن (کیلوگرم)</label>
 <div class="range-input">
 <input type="range" id="weight-range" min="30" max="200" value="70">
 <span class="range-value" id="weight-value">70</span>
@@ -118,20 +207,20 @@ footer{text-align:center;margin-top:40px;color:white;padding:20px;opacity:.8;ani
 <input type="number" id="weight" min="30" max="200" value="70">
 </div>
 <div class="input-group">
-<label for="age">سن</label>
+<label for="age" id="age-label">سن</label>
 <input type="number" id="age" min="1" max="120" value="25">
 </div>
 <div class="input-group">
-<label for="gender">جنسیت</label>
+<label for="gender" id="gender-label">جنسیت</label>
 <select id="gender">
-<option value="male">مرد</option>
-<option value="female">زن</option>
+<option value="male" id="male-option">مرد</option>
+<option value="female" id="female-option">زن</option>
 </select>
 </div>
-<button id="calculate"><i class="fas fa-bolt"></i> محاسبه BMI</button>
-<button id="save" class="delete-btn"><i class="fas fa-save"></i> ذخیره نتیجه</button>
+<button id="calculate"><i class="fas fa-bolt"></i> <span id="calc-button">محاسبه BMI</span></button>
+<button id="save" class="delete-btn"><i class="fas fa-save"></i> <span id="save-button">ذخیره نتیجه</span></button>
 <div class="result" id="result" style="display:none;">
-<h3>نتیجه محاسبه</h3>
+<h3 id="result-title">نتیجه محاسبه</h3>
 <div class="bmi-value" id="bmi-value">0</div>
 <div class="bmi-category" id="bmi-category">-</div>
 <div id="bmi-message"></div>
@@ -139,145 +228,328 @@ footer{text-align:center;margin-top:40px;color:white;padding:20px;opacity:.8;ani
 </div>
 
 <div class="card">
-<h2 class="card-title"><i class="fas fa-chart-line"></i> نمودار تغییرات BMI</h2>
-<div class="chart-container"><canvas id="bmiChart"></canvas></div>
-<h2 class="card-title" style="margin-top:30px;"><i class="fas fa-history"></i> تاریخچه محاسبات</h2>
-<div class="history-list" id="history-list">
-<div class="empty-history" id="empty-history">هیچ محاسبه‌ای ذخیره نشده است</div>
+<h2 class="card-title"><i class="fas fa-chart-line"></i> <span id="chart-title">نمودار تغییرات BMI</span></h2>
+<div class="chart-container" id="chart-wrapper">
+    <canvas id="bmiChart"></canvas>
+    <div id="chart-no-data" class="chart-no-data" style="display:none;"></div>
 </div>
-<button id="clear-history" class="delete-btn"><i class="fas fa-trash"></i> پاک کردن تاریخچه</button>
+<h2 class="card-title" style="margin-top:30px;"><i class="fas fa-history"></i> <span id="history-title">تاریخچه محاسبات</span></h2>
+<div class="history-list" id="history-list">
+    <div class="empty-history" id="empty-history">هیچ محاسبه‌ای ذخیره نشده است</div>
+</div>
+<button id="clear-history" class="delete-btn"><i class="fas fa-trash"></i> <span id="clear-history-text">پاک کردن تاریخچه</span></button>
 </div>
 </div>
 
 <div class="bmi-scale">
-<div class="scale-item" style="background:#17a2b8">کم‌وزن<br>&lt;۱۸.۵</div>
-<div class="scale-item" style="background:#28a745">طبیعی<br>۱۸.۵-۲۴.۹</div>
-<div class="scale-item" style="background:#ffc107">اضافه‌وزن<br>۲۵-۲۹.۹</div>
-<div class="scale-item" style="background:#fd7e14">چاق<br>۳۰-۳۴.۹</div>
-<div class="scale-item" style="background:#dc3545">خیلی چاق<br>&gt;۳۵</div>
+<div class="scale-item" style="background:#17a2b8"><span id="underweight-text">کم‌وزن</span><br>&lt;۱۸.۵</div>
+<div class="scale-item" style="background:#28a745"><span id="normal-text">طبیعی</span><br>۱۸.۵-۲۴.۹</div>
+<div class="scale-item" style="background:#ffc107"><span id="overweight-text">اضافه‌وزن</span><br>۲۵-۲۹.۹</div>
+<div class="scale-item" style="background:#fd7e14"><span id="obese-text">چاق</span><br>۳۰-۳۴.۹</div>
+<div class="scale-item" style="background:#dc3545"><span id="very-obese-text">خیلی چاق</span><br>&gt;۳۵</div>
 </div>
 
 <div class="tips">
-<div class="tip-card"><h3 class="tip-title"><i class="fas fa-apple-alt"></i> تغذیه سالم</h3><p>مصرف میوه، سبزیجات، غلات کامل و پروتئین بدون چربی را افزایش دهید.</p></div>
-<div class="tip-card"><h3 class="tip-title"><i class="fas fa-running"></i> فعالیت بدنی</h3><p>حداقل 150 دقیقه فعالیت هوازی متوسط یا 75 دقیقه فعالیت شدید در هفته داشته باشید.</p></div>
-<div class="tip-card"><h3 class="tip-title"><i class="fas fa-tint"></i> نوشیدن آب</h3><p>روزانه 8-10 لیوان آب بنوشید.</p></div>
-<div class="tip-card"><h3 class="tip-title"><i class="fas fa-bed"></i> خواب کافی</h3><p>7-9 ساعت خواب با کیفیت در شب داشته باشید.</p></div>
+<div class="tip-card"><h3 class="tip-title"><i class="fas fa-apple-alt"></i> <span id="tip1-title">تغذیه سالم</span></h3><p id="tip1-text">مصرف میوه، سبزیجات، غلات کامل و پروتئین بدون چربی را افزایش دهید.</p></div>
+<div class="tip-card"><h3 class="tip-title"><i class="fas fa-running"></i> <span id="tip2-title">فعالیت بدنی</span></h3><p id="tip2-text">حداقل 150 دقیقه فعالیت هوازی متوسط یا 75 دقیقه فعالیت شدید در هفته داشته باشید.</p></div>
+<div class="tip-card"><h3 class="tip-title"><i class="fas fa-tint"></i> <span id="tip3-title">نوشیدن آب</span></h3><p id="tip3-text">روزانه 8-10 لیوان آب بنوشید.</p></div>
+<div class="tip-card"><h3 class="tip-title"><i class="fas fa-bed"></i> <span id="tip4-title">خواب کافی</span></h3><p id="tip4-text">7-9 ساعت خواب با کیفیت در شب داشته باشید.</p></div>
 </div>
 
 <footer>
-<p>این ابزار فقط برای اهداف آموزشی طراحی شده و جایگزین مشاوره پزشکی نیست.</p>
-<p>ابزار محاسبه BMI | توسعه‌دهنده: xsparvin</p>
+<p id="footer-text1">این ابزار فقط برای اهداف آموزشی طراحی شده و جایگزین مشاوره پزشکی نیست.</p>
+<p id="footer-text2">ابزار محاسبه BMI | توسعه‌دهنده: xsparvin</p>
 </footer>
 </div>
 
 <script>
-// ارتباط input و range
-const heightInput = document.getElementById('height'),
-      heightRange = document.getElementById('height-range'),
-      heightValue = document.getElementById('height-value');
+/* ===== متغیرها و المان‌ها ===== */
+const heightInput = document.getElementById('height');
+const heightRange = document.getElementById('height-range');
+const heightValue = document.getElementById('height-value');
 
-const weightInput = document.getElementById('weight'),
-      weightRange = document.getElementById('weight-range'),
-      weightValue = document.getElementById('weight-value');
+const weightInput = document.getElementById('weight');
+const weightRange = document.getElementById('weight-range');
+const weightValue = document.getElementById('weight-value');
 
-// همگام‌سازی مقادیر قد
-[heightInput, heightRange].forEach(el => el.addEventListener('input', () => {
-    const value = el.value;
-    heightInput.value = value;
-    heightRange.value = value;
-    heightValue.textContent = value;
-}));
+const ageInput = document.getElementById('age');
+const genderSelect = document.getElementById('gender');
 
-// همگام‌سازی مقادیر وزن
-[weightInput, weightRange].forEach(el => el.addEventListener('input', () => {
-    const value = el.value;
-    weightInput.value = value;
-    weightRange.value = value;
-    weightValue.textContent = value;
-}));
+const calculateBtn = document.getElementById('calculate');
+const saveBtn = document.getElementById('save');
+const clearHistoryBtn = document.getElementById('clear-history');
 
-// متغیرهای اصلی
-let bmiChart = null;
+const resultDiv = document.getElementById('result');
+const bmiValueEl = document.getElementById('bmi-value');
+const bmiCategoryEl = document.getElementById('bmi-category');
+const bmiMessageEl = document.getElementById('bmi-message');
+
+const historyListEl = document.getElementById('history-list');
+const emptyHistoryEl = document.getElementById('empty-history');
+
+const bmiChartCanvas = document.getElementById('bmiChart');
+const chartNoDataEl = document.getElementById('chart-no-data');
+
+const themeToggleBtn = document.getElementById('theme-toggle');
+const languageToggleBtn = document.getElementById('language-toggle');
+
+/* ===== حالت‌ها / وضعیت ذخیره‌شده ===== */
 let history = JSON.parse(localStorage.getItem('bmiHistory')) || [];
+let currentTheme = localStorage.getItem('bmiTheme') || 'light-theme';
+let currentLanguage = localStorage.getItem('bmiLanguage') || 'fa';
+let bmiChart = null;
+let lastCalculatedBMI = null; // برای چک کردن قبل از ذخیره
 
-// تابع محاسبه BMI
-function calculateBMI(height, weight) {
-    const heightInMeters = height / 100;
-    return weight / (heightInMeters * heightInMeters);
-}
-
-// تابع تعیین دسته BMI
-function getBMICategory(bmi) {
-    if (bmi < 18.5) return { category: 'کم‌وزن', class: 'underweight' };
-    if (bmi < 25) return { category: 'طبیعی', class: 'normal' };
-    if (bmi < 30) return { category: 'اضافه‌وزن', class: 'overweight' };
-    if (bmi < 35) return { category: 'چاق', class: 'obese' };
-    return { category: 'خیلی چاق', class: 'obese' };
-}
-
-// تابع نمایش نتیجه
-function displayResult(bmi, category) {
-    const resultDiv = document.getElementById('result');
-    const bmiValue = document.getElementById('bmi-value');
-    const bmiCategory = document.getElementById('bmi-category');
-    const bmiMessage = document.getElementById('bmi-message');
-    
-    bmiValue.textContent = bmi.toFixed(1);
-    bmiCategory.textContent = category.category;
-    bmiCategory.className = `bmi-category ${category.class}`;
-    
-    // پیام توصیه
-    let message = '';
-    if (bmi < 18.5) {
-        message = 'شما کم‌وزن هستید. بهتر است با یک متخصص تغذیه مشورت کنید.';
-    } else if (bmi < 25) {
-        message = 'وزن شما در محدوده طبیعی است. برای حفظ آن تلاش کنید.';
-    } else if (bmi < 30) {
-        message = 'شما اضافه وزن دارید. کاهش وزن می‌تواند به سلامت شما کمک کند.';
-    } else {
-        message = 'شما در دسته چاق قرار دارید. بهتر است با پزشک مشورت کنید.';
+/* ===== ترجمه‌ها ===== */
+const translations = {
+    fa: {
+        mainTitle: "ابزار محاسبه BMI",
+        subtitle: "شاخص توده بدنی خود را محاسبه و روند تغییرات آن را دنبال کنید",
+        creator: "توسعه دهنده: xsparvin",
+        themeText: "تغییر تم",
+        languageText: "English",
+        calcTitle: "محاسبه BMI",
+        heightLabel: "قد (سانتی‌متر)",
+        weightLabel: "وزن (کیلوگرم)",
+        ageLabel: "سن",
+        genderLabel: "جنسیت",
+        maleOption: "مرد",
+        femaleOption: "زن",
+        calcButton: "محاسبه BMI",
+        saveButton: "ذخیره نتیجه",
+        resultTitle: "نتیجه محاسبه",
+        chartTitle: "نمودار تغییرات BMI",
+        historyTitle: "تاریخچه محاسبات",
+        clearHistory: "پاک کردن تاریخچه",
+        underweight: "کم‌وزن",
+        normal: "طبیعی",
+        overweight: "اضافه‌وزن",
+        obese: "چاق",
+        veryObese: "خیلی چاق",
+        tip1Title: "تغذیه سالم",
+        tip1Text: "مصرف میوه، سبزیجات، غلات کامل و پروتئین بدون چربی را افزایش دهید.",
+        tip2Title: "فعالیت بدنی",
+        tip2Text: "حداقل 150 دقیقه فعالیت هوازی متوسط یا 75 دقیقه فعالیت شدید در هفته داشته باشید.",
+        tip3Title: "نوشیدن آب",
+        tip3Text: "روزانه 8-10 لیوان آب بنوشید.",
+        tip4Title: "خواب کافی",
+        tip4Text: "7-9 ساعت خواب با کیفیت در شب داشته باشید.",
+        footer1: "این ابزار فقط برای اهداف آموزشی طراحی شده و جایگزین مشاوره پزشکی نیست.",
+        footer2: "ابزار محاسبه BMI | توسعه‌دهنده: xsparvin",
+        noData: "هیچ محاسبه‌ای ذخیره نشده است",
+        chartNoData: "هیچ داده‌ای برای نمایش وجود ندارد",
+        chartTitleText: "روند تغییرات BMI شما",
+        underweightMsg: "شما کم‌وزن هستید. بهتر است با یک متخصص تغذیه مشورت کنید.",
+        normalMsg: "وزن شما در محدوده طبیعی است. برای حفظ آن تلاش کنید.",
+        overweightMsg: "شما اضافه وزن دارید. کاهش وزن می‌تواند به سلامت شما کمک کند.",
+        obeseMsg: "شما در دسته چاق قرار دارید. بهتر است با پزشک مشورت کنید.",
+        saveAlert: "لطفاً ابتدا BMI خود را محاسبه کنید.",
+        saveSuccess: "نتیجه با موفقیت ذخیره شد.",
+        clearConfirm: "آیا از پاک کردن تاریخچه مطمئن هستید؟",
+        clearSuccess: "تاریخچه پاک شد.",
+        inputAlert: "لطفاً قد و وزن خود را وارد کنید."
+    },
+    en: {
+        mainTitle: "BMI Calculator",
+        subtitle: "Calculate your Body Mass Index and track its changes",
+        creator: "Developer: xsparvin",
+        themeText: "Change Theme",
+        languageText: "فارسی",
+        calcTitle: "Calculate BMI",
+        heightLabel: "Height (cm)",
+        weightLabel: "Weight (kg)",
+        ageLabel: "Age",
+        genderLabel: "Gender",
+        maleOption: "Male",
+        femaleOption: "Female",
+        calcButton: "Calculate BMI",
+        saveButton: "Save Result",
+        resultTitle: "Calculation Result",
+        chartTitle: "BMI Changes Chart",
+        historyTitle: "Calculation History",
+        clearHistory: "Clear History",
+        underweight: "Underweight",
+        normal: "Normal",
+        overweight: "Overweight",
+        obese: "Obese",
+        veryObese: "Very Obese",
+        tip1Title: "Healthy Nutrition",
+        tip1Text: "Increase consumption of fruits, vegetables, whole grains and lean protein.",
+        tip2Title: "Physical Activity",
+        tip2Text: "Have at least 150 minutes of moderate aerobic activity or 75 minutes of intense activity per week.",
+        tip3Title: "Drink Water",
+        tip3Text: "Drink 8-10 glasses of water daily.",
+        tip4Title: "Adequate Sleep",
+        tip4Text: "Have 7-9 hours of quality sleep at night.",
+        footer1: "This tool is designed for educational purposes only and is not a substitute for medical advice.",
+        footer2: "BMI Calculator | Developer: xsparvin",
+        noData: "No calculations saved",
+        chartNoData: "No data to display",
+        chartTitleText: "Your BMI Changes Trend",
+        underweightMsg: "You are underweight. It is better to consult with a nutritionist.",
+        normalMsg: "Your weight is in the normal range. Try to maintain it.",
+        overweightMsg: "You are overweight. Weight loss can improve your health.",
+        obeseMsg: "You are in the obese category. It is better to consult with a doctor.",
+        saveAlert: "Please calculate your BMI first.",
+        saveSuccess: "Result saved successfully.",
+        clearConfirm: "Are you sure you want to clear the history?",
+        clearSuccess: "History cleared.",
+        inputAlert: "Please enter your height and weight."
     }
-    
-    bmiMessage.textContent = message;
-    resultDiv.style.display = 'block';
+};
+
+/* ===== توابع کمکی ===== */
+
+function applySavedTheme() {
+    document.body.classList.remove('light-theme','dark-theme','nature-theme');
+    document.body.classList.add(currentTheme);
 }
 
-// تابع ذخیره در تاریخچه
-function saveToHistory(bmi, category) {
-    const now = new Date();
-    const dateStr = now.toLocaleDateString('fa-IR');
-    
-    const entry = {
-        date: dateStr,
-        bmi: bmi.toFixed(1),
-        category: category.category,
-        class: category.class,
-        timestamp: now.getTime()
-    };
-    
-    history.push(entry);
-    localStorage.setItem('bmiHistory', JSON.stringify(history));
+function updateTexts() {
+    const t = translations[currentLanguage];
+
+    document.getElementById('main-title').textContent = t.mainTitle;
+    document.getElementById('subtitle-text').textContent = t.subtitle;
+    document.getElementById('creator-text').textContent = t.creator;
+    document.getElementById('theme-text').textContent = t.themeText;
+    document.getElementById('language-text').textContent = t.languageText;
+    document.getElementById('calc-title').textContent = t.calcTitle;
+    document.getElementById('height-label').textContent = t.heightLabel;
+    document.getElementById('weight-label').textContent = t.weightLabel;
+    document.getElementById('age-label').textContent = t.ageLabel;
+    document.getElementById('gender-label').textContent = t.genderLabel;
+    document.getElementById('male-option').textContent = t.maleOption;
+    document.getElementById('female-option').textContent = t.femaleOption;
+    document.getElementById('calc-button').textContent = t.calcButton;
+    document.getElementById('save-button').textContent = t.saveButton;
+    document.getElementById('result-title').textContent = t.resultTitle;
+    document.getElementById('chart-title').textContent = t.chartTitle;
+    document.getElementById('history-title').textContent = t.historyTitle;
+    document.getElementById('clear-history-text').textContent = t.clearHistory;
+    document.getElementById('underweight-text').textContent = t.underweight;
+    document.getElementById('normal-text').textContent = t.normal;
+    document.getElementById('overweight-text').textContent = t.overweight;
+    document.getElementById('obese-text').textContent = t.obese;
+    document.getElementById('very-obese-text').textContent = t.veryObese;
+    document.getElementById('tip1-title').textContent = t.tip1Title;
+    document.getElementById('tip1-text').textContent = t.tip1Text;
+    document.getElementById('tip2-title').textContent = t.tip2Title;
+    document.getElementById('tip2-text').textContent = t.tip2Text;
+    document.getElementById('tip3-title').textContent = t.tip3Title;
+    document.getElementById('tip3-text').textContent = t.tip3Text;
+    document.getElementById('tip4-title').textContent = t.tip4Title;
+    document.getElementById('tip4-text').textContent = t.tip4Text;
+    document.getElementById('footer-text1').textContent = t.footer1;
+    document.getElementById('footer-text2').textContent = t.footer2;
+
+    // کلاس جهت متن (rtl / ltr)
+    document.body.classList.toggle('english', currentLanguage === 'en');
+
+    // به‌روزرسانی لیست و نمودار برای متن‌ها
     updateHistoryList();
     updateChart();
 }
 
-// تابع به‌روزرسانی لیست تاریخچه
-function updateHistoryList() {
-    const historyList = document.getElementById('history-list');
-    const emptyHistory = document.getElementById('empty-history');
-    
-    if (history.length === 0) {
-        emptyHistory.style.display = 'block';
-        historyList.innerHTML = '<div class="empty-history" id="empty-history">هیچ محاسبه‌ای ذخیره نشده است</div>';
+function syncRangeAndNumber(rangeEl, numberEl, displayEl) {
+    // مقدار اولیه تطبیق یابد
+    rangeEl.value = numberEl.value;
+    displayEl.textContent = numberEl.value;
+
+    rangeEl.addEventListener('input', () => {
+        numberEl.value = rangeEl.value;
+        displayEl.textContent = rangeEl.value;
+    });
+
+    numberEl.addEventListener('input', () => {
+        let v = Number(numberEl.value);
+        if (isNaN(v)) v = Number(rangeEl.min) || 0;
+        // محدوده را رعایت کن
+        if (v < Number(rangeEl.min)) v = Number(rangeEl.min);
+        if (v > Number(rangeEl.max)) v = Number(rangeEl.max);
+        numberEl.value = v;
+        rangeEl.value = v;
+        displayEl.textContent = v;
+    });
+}
+
+function calculateBMI(heightCm, weightKg) {
+    if (!heightCm || !weightKg) return null;
+    const h = Number(heightCm) / 100;
+    if (h <= 0) return null;
+    return Number((weightKg / (h * h)));
+}
+
+function getBMICategory(bmi) {
+    const t = translations[currentLanguage];
+    if (bmi < 18.5) return { category: t.underweight, class: 'underweight' };
+    if (bmi < 25) return { category: t.normal, class: 'normal' };
+    if (bmi < 30) return { category: t.overweight, class: 'overweight' };
+    if (bmi < 35) return { category: t.obese, class: 'obese' };
+    return { category: t.veryObese, class: 'obese' };
+}
+
+/* ===== نمایش نتیجه ===== */
+function displayResult(bmi) {
+    const t = translations[currentLanguage];
+    lastCalculatedBMI = bmi;
+    const category = getBMICategory(bmi);
+    bmiValueEl.textContent = bmi.toFixed(1);
+    bmiCategoryEl.textContent = category.category;
+    bmiCategoryEl.className = `bmi-category ${category.class}`;
+
+    // پیام
+    let message = '';
+    if (bmi < 18.5) message = t.underweightMsg;
+    else if (bmi < 25) message = t.normalMsg;
+    else if (bmi < 30) message = t.overweightMsg;
+    else message = t.obeseMsg;
+
+    bmiMessageEl.textContent = message;
+    resultDiv.style.display = 'block';
+}
+
+/* ===== ذخیره در تاریخچه ===== */
+function saveToHistory() {
+    const t = translations[currentLanguage];
+    if (lastCalculatedBMI == null) {
+        alert(t.saveAlert);
         return;
     }
-    
-    emptyHistory.style.display = 'none';
-    
-    // مرتب کردن تاریخچه بر اساس تاریخ (جدیدترین اول)
-    const sortedHistory = [...history].sort((a, b) => b.timestamp - a.timestamp);
-    
-    historyList.innerHTML = sortedHistory.map(entry => `
+    const now = new Date();
+    const dateStr = currentLanguage === 'fa'
+        ? now.toLocaleDateString('fa-IR')
+        : now.toLocaleDateString('en-US');
+
+    const category = getBMICategory(lastCalculatedBMI);
+
+    const entry = {
+        date: dateStr,
+        bmi: lastCalculatedBMI.toFixed(1),
+        category: category.category,
+        class: category.class,
+        timestamp: now.getTime()
+    };
+
+    history.push(entry);
+    // محدودیت نداشتن طول تاریخچه کاربر را به عهده دارد؛ اگر خواستید می‌توانیم محدود کنیم
+    localStorage.setItem('bmiHistory', JSON.stringify(history));
+    updateHistoryList();
+    updateChart();
+    alert(t.saveSuccess);
+}
+
+/* ===== نمایش لیست تاریخچه ===== */
+function updateHistoryList() {
+    const t = translations[currentLanguage];
+    if (!history || history.length === 0) {
+        historyListEl.innerHTML = `<div class="empty-history" id="empty-history">${t.noData}</div>`;
+        return;
+    }
+
+    // مرتب سازی نزولی (جدیدترین اول)
+    const sorted = [...history].sort((a,b) => b.timestamp - a.timestamp);
+
+    historyListEl.innerHTML = sorted.map(entry => `
         <div class="history-item">
             <div class="history-date">${entry.date}</div>
             <div class="history-bmi">${entry.bmi}</div>
@@ -286,142 +558,175 @@ function updateHistoryList() {
     `).join('');
 }
 
-// تابع به‌روزرسانی نمودار
+/* ===== پاک کردن تاریخچه ===== */
+function clearHistory() {
+    const t = translations[currentLanguage];
+    if (!confirm(t.clearConfirm)) return;
+    history = [];
+    localStorage.removeItem('bmiHistory');
+    updateHistoryList();
+    updateChart();
+    alert(t.clearSuccess);
+}
+
+/* ===== نمودار ===== */
 function updateChart() {
-    const ctx = document.getElementById('bmiChart').getContext('2d');
-    
-    // مرتب کردن تاریخچه بر اساس تاریخ (قدیمی‌ترین اول)
-    const sortedHistory = [...history].sort((a, b) => a.timestamp - b.timestamp);
-    
-    if (bmiChart) {
-        bmiChart.destroy();
-    }
-    
-    if (sortedHistory.length === 0) {
-        bmiChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: [],
-                datasets: [{
-                    label: 'BMI',
-                    data: [],
-                    borderColor: '#4361ee',
-                    backgroundColor: 'rgba(67, 97, 238, 0.1)',
-                    borderWidth: 2,
-                    tension: 0.3,
-                    fill: true
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: false,
-                        min: 15,
-                        max: 40
-                    }
-                },
-                plugins: {
-                    legend: {
-                        display: false
-                    },
-                    title: {
-                        display: true,
-                        text: 'هیچ داده‌ای برای نمایش وجود ندارد'
-                    }
-                }
-            }
-        });
+    const t = translations[currentLanguage];
+
+    if (!history || history.length === 0) {
+        // مخفی کردن کانواس و نمایش پیغام
+        if (bmiChart) {
+            try { bmiChart.destroy(); } catch(e){/* ignore */ }
+            bmiChart = null;
+        }
+        bmiChartCanvas.style.display = 'none';
+        chartNoDataEl.style.display = 'flex';
+        chartNoDataEl.textContent = t.chartNoData;
         return;
     }
-    
-    const labels = sortedHistory.map(entry => entry.date);
-    const data = sortedHistory.map(entry => parseFloat(entry.bmi));
-    
+
+    bmiChartCanvas.style.display = 'block';
+    chartNoDataEl.style.display = 'none';
+
+    // مرتب‌سازی صعودی (قدیمی -> جدید) برای نمودار
+    const sortedAsc = [...history].sort((a,b) => a.timestamp - b.timestamp);
+
+    const labels = sortedAsc.map(e => {
+        // نمایش تاریخ مختصر؛ اگر fa باشد از toLocaleDateString استفاده می‌کنیم
+        return e.date;
+    });
+    const data = sortedAsc.map(e => Number(e.bmi));
+
+    // اگر نمودار قبلی موجود است destroy کن
+    if (bmiChart) {
+        try { bmiChart.destroy(); } catch (e) { /* ignore */ }
+        bmiChart = null;
+    }
+
+    // ساختار Chart.js
+    const ctx = bmiChartCanvas.getContext('2d');
     bmiChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: labels,
+            labels,
             datasets: [{
-                label: 'BMI',
-                data: data,
-                borderColor: '#4361ee',
-                backgroundColor: 'rgba(67, 97, 238, 0.1)',
-                borderWidth: 2,
+                label: t.chartTitleText,
+                data,
+                fill: true,
                 tension: 0.3,
-                fill: true
+                pointRadius: 5,
+                pointHoverRadius: 7,
+                borderWidth: 2,
+                borderColor: getComputedStyle(document.documentElement).getPropertyValue('--primary') || '#4361ee',
+                backgroundColor: (context) => {
+                    // گرادیانت پس‌زمینه
+                    const g = ctx.createLinearGradient(0, 0, 0, 300);
+                    g.addColorStop(0, 'rgba(67,97,238,0.15)');
+                    g.addColorStop(1, 'rgba(58,12,163,0.02)');
+                    return g;
+                }
             }]
         },
         options: {
             responsive: true,
             maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: { mode: 'index', intersect: false }
+            },
             scales: {
+                x: {
+                    display: true,
+                    title: { display: false }
+                },
                 y: {
                     beginAtZero: false,
-                    min: Math.min(...data) - 2,
-                    max: Math.max(...data) + 2
-                }
-            },
-            plugins: {
-                legend: {
-                    display: false
-                },
-                title: {
-                    display: true,
-                    text: 'روند تغییرات BMI شما'
+                    suggestedMin: Math.min(...data) - 2,
+                    suggestedMax: Math.max(...data) + 2,
+                    title: { display: true, text: 'BMI' }
                 }
             }
         }
     });
 }
 
-// رویداد کلیک برای محاسبه
-document.getElementById('calculate').addEventListener('click', () => {
-    const height = parseFloat(heightInput.value);
-    const weight = parseFloat(weightInput.value);
-    
-    if (!height || !weight) {
-        alert('لطفاً قد و وزن خود را وارد کنید.');
+/* ===== هندلرها ===== */
+
+function handleCalculateClick() {
+    const h = Number(heightInput.value);
+    const w = Number(weightInput.value);
+    const t = translations[currentLanguage];
+
+    if (!h || !w || h <= 0 || w <= 0) {
+        alert(t.inputAlert);
         return;
     }
-    
-    const bmi = calculateBMI(height, weight);
-    const category = getBMICategory(bmi);
-    
-    displayResult(bmi, category);
-});
 
-// رویداد کلیک برای ذخیره
-document.getElementById('save').addEventListener('click', () => {
-    const resultDiv = document.getElementById('result');
-    
-    if (resultDiv.style.display === 'none') {
-        alert('لطفاً ابتدا BMI خود را محاسبه کنید.');
+    const bmi = calculateBMI(h, w);
+    if (bmi == null || !isFinite(bmi)) {
+        alert(t.inputAlert);
         return;
     }
-    
-    const bmi = parseFloat(document.getElementById('bmi-value').textContent);
-    const category = getBMICategory(bmi);
-    
-    saveToHistory(bmi, category);
-    alert('نتیجه با موفقیت ذخیره شد.');
-});
+    displayResult(bmi);
+    updateChart(); // اگر می‌خواهید محاسبه جدید به نمودار بدون ذخیره اضافه شود — این خط فقط نمودار را بروز می‌کند
+}
 
-// رویداد کلیک برای پاک کردن تاریخچه
-document.getElementById('clear-history').addEventListener('click', () => {
-    if (confirm('آیا از پاک کردن تاریخچه مطمئن هستید؟')) {
-        history = [];
-        localStorage.removeItem('bmiHistory');
-        updateHistoryList();
-        updateChart();
-        alert('تاریخچه پاک شد.');
-    }
-});
+function handleSaveClick() {
+    saveToHistory();
+}
 
-// مقداردهی اولیه
-updateHistoryList();
-updateChart();
+function handleThemeToggle() {
+    const themes = ['light-theme', 'dark-theme', 'nature-theme'];
+    const idx = themes.indexOf(currentTheme);
+    const next = (idx + 1) % themes.length;
+    document.body.classList.remove(currentTheme);
+    currentTheme = themes[next];
+    document.body.classList.add(currentTheme);
+    localStorage.setItem('bmiTheme', currentTheme);
+}
+
+function handleLanguageToggle() {
+    currentLanguage = currentLanguage === 'fa' ? 'en' : 'fa';
+    localStorage.setItem('bmiLanguage', currentLanguage);
+    updateTexts();
+}
+
+/* ===== مقداردهی اولیه ===== */
+
+function init() {
+    // همگام‌سازی range و number برای قد و وزن
+    syncRangeAndNumber(heightRange, heightInput, heightValue);
+    syncRangeAndNumber(weightRange, weightInput, weightValue);
+
+    // اعمال تم و زبان ذخیره‌شده
+    applySavedTheme();
+    updateTexts();
+
+    // اگر تاریخچه در localStorage وجود داشت لیست را به‌روز کن
+    updateHistoryList();
+    updateChart();
+
+    // رویدادها
+    calculateBtn.addEventListener('click', handleCalculateClick);
+    saveBtn.addEventListener('click', handleSaveClick);
+    clearHistoryBtn.addEventListener('click', clearHistory);
+    themeToggleBtn.addEventListener('click', handleThemeToggle);
+    languageToggleBtn.addEventListener('click', handleLanguageToggle);
+
+    // کلیدهای ورودی Enter را مدیریت کن (مثلاً Enter در input وزن => محاسبه)
+    [heightInput, weightInput, ageInput].forEach(inp => {
+        inp.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') handleCalculateClick();
+        });
+    });
+
+    // مقداردهی اولیه به نمایش مقادیر range
+    heightValue.textContent = heightInput.value;
+    weightValue.textContent = weightInput.value;
+}
+
+init();
+
 </script>
 </body>
 </html>
